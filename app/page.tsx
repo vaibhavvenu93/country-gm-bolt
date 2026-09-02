@@ -25,7 +25,10 @@ type Opportunity = {
   unknowns: string[];
 };
 
-type EvidenceType = "PUBLIC FACT" | "PUBLIC INFERENCE" | "MODELED ASSUMPTION";
+type EvidenceType =
+  | "PUBLIC FACT"
+  | "PUBLIC INFERENCE"
+  | "MODELED ASSUMPTION";
 
 type Merchant = {
   name: string;
@@ -38,6 +41,21 @@ type Merchant = {
   opportunity: string;
   evidenceType: EvidenceType;
 };
+
+type TourStep = {
+  number: string;
+  eyebrow: string;
+  title: string;
+  body: React.ReactNode;
+  button?: string;
+  view?: View;
+  opportunityId?: number;
+  instruction?: string;
+};
+
+const LINKEDIN_URL = "https://www.linkedin.com/in/vaibhavvenu/";
+const CALENDLY_URL = "https://calendly.com/venuvaibhav93/30min";
+const CV_URL = "/vaibhav-venu-cv.pdf";
 
 const opportunities: Opportunity[] = [
   {
@@ -65,7 +83,8 @@ const opportunities: Opportunity[] = [
   {
     id: 2,
     title: "Win Saturday 19:30",
-    subtitle: "Protect Bolt Malta at its publicly reported peak ordering moment.",
+    subtitle:
+      "Protect Bolt Malta at its publicly reported peak ordering moment.",
     status: "READY",
     confidence: 87,
     speed: "7 days",
@@ -126,7 +145,8 @@ const opportunities: Opportunity[] = [
   {
     id: 5,
     title: "Ride → Food",
-    subtitle: "Find Food growth that exists because Bolt already owns mobility intent.",
+    subtitle:
+      "Find Food growth that exists because Bolt already owns mobility intent.",
     status: "INVESTIGATING",
     confidence: 69,
     speed: "21 days",
@@ -145,7 +165,8 @@ const opportunities: Opportunity[] = [
   {
     id: 6,
     title: "Merchant Occasion Gaps",
-    subtitle: "Find missing occasions, not merely missing restaurant logos.",
+    subtitle:
+      "Find missing occasions, not merely missing restaurant logos.",
     status: "DISCOVERED",
     confidence: 64,
     speed: "30 days",
@@ -175,11 +196,7 @@ const opportunities: Opportunity[] = [
       "Inbound visitors heavily use rented accommodation.",
       "Visitors have limited time to discover local restaurants.",
     ],
-    unknowns: [
-      "Hotel order mix",
-      "Partnership economics",
-      "Tourist CAC",
-    ],
+    unknowns: ["Hotel order mix", "Partnership economics", "Tourist CAC"],
   },
   {
     id: 8,
@@ -194,12 +211,7 @@ const opportunities: Opportunity[] = [
       "Gozo has different density and tourism dynamics.",
       "Courier economics may differ materially.",
     ],
-    unknowns: [
-      "Order density",
-      "Courier economics",
-      "Merchant coverage",
-      "Seasonality",
-    ],
+    unknowns: ["Order density", "Courier economics", "Merchant coverage", "Seasonality"],
   },
 ];
 
@@ -414,11 +426,308 @@ const promptPresets = [
   "Where should I put €100K next quarter?",
 ];
 
+const tourSteps: TourStep[] = [
+  {
+    number: "01",
+    eyebrow: "Welcome",
+    title: "Hey, I’m Vaibhav.",
+    body: (
+      <>
+        <p>
+          I came across the Strategy & Operations opportunity at Bolt Food Malta
+          and the problem felt familiar.
+        </p>
+
+        <p>
+          I was part of Swiggy&apos;s early city-expansion years during
+          India&apos;s first food-tech wave.
+        </p>
+
+        <p>
+          A decade later, I wanted to answer a different question:
+        </p>
+
+        <p className="font-black text-white">
+          How would I attack the same class of marketplace problem in 2026?
+        </p>
+
+        <p>
+          So instead of writing another cover letter, I researched Malta and
+          built the operating system I&apos;d want if you gave me the job Monday
+          morning.
+        </p>
+
+        <p className="font-black text-white">Welcome to my application.</p>
+      </>
+    ),
+    button: "Start with Monday →",
+    view: "monday",
+  },
+  {
+    number: "02",
+    eyebrow: "Monday",
+    title: "Start with the decision, not the dashboard.",
+    body: (
+      <>
+        <p>
+          A country operator could have hundreds of signals competing for
+          attention.
+        </p>
+
+        <p>
+          My first question is simpler:{" "}
+          <span className="font-black text-white">
+            what actually deserves management attention this week?
+          </span>
+        </p>
+
+        <p>
+          COUNTRY GM starts with 142 external signals, turns them into
+          hypotheses, challenges them and leaves three starting moves.
+        </p>
+      </>
+    ),
+    button: "Investigate move #1 →",
+    view: "monday",
+    opportunityId: 1,
+  },
+  {
+    number: "03",
+    eyebrow: "Investigation",
+    title: "I don’t want fake certainty.",
+    body: (
+      <>
+        <p>
+          This is one of the hypotheses: turn a visitor&apos;s arrival into a
+          first-night Bolt Food occasion.
+        </p>
+
+        <p>
+          The important part isn&apos;t whether my public-data estimate is
+          perfectly right.
+        </p>
+
+        <p>
+          It&apos;s the separation between{" "}
+          <span className="font-black text-white">
+            what we know, what we infer, and what internal data would change the
+            decision.
+          </span>
+        </p>
+
+        <p>
+          Change the numbers on the page. The economics move with them.
+        </p>
+      </>
+    ),
+    instruction: "Try changing Activation % or Contribution €.",
+    button: "Now segment Malta →",
+    view: "market",
+  },
+  {
+    number: "04",
+    eyebrow: "Market model",
+    title: "Malta is small. That doesn’t make it one market.",
+    body: (
+      <>
+        <p>
+          St Julian&apos;s, Sliema, Valletta, Msida and Gozo contain different
+          combinations of residents, tourists, nightlife, density and courier
+          complexity.
+        </p>
+
+        <p>
+          So the operating question becomes:
+        </p>
+
+        <p className="font-black text-white">
+          Where should Bolt behave differently?
+        </p>
+
+        <p>
+          Click a few localities and watch the operating thesis change.
+        </p>
+      </>
+    ),
+    instruction: "Try St Julian's, Sliema and Gozo.",
+    button: "Look at merchant strategy →",
+    view: "merchants",
+  },
+  {
+    number: "05",
+    eyebrow: "Merchant intelligence",
+    title: "Selection is not a logo count.",
+    body: (
+      <>
+        <p>
+          A delivery marketplace can have lots of restaurants and still lose
+          important customer occasions.
+        </p>
+
+        <p>
+          So I&apos;d investigate selection through{" "}
+          <span className="font-black text-white">
+            occasion × locality × availability × customer type.
+          </span>
+        </p>
+
+        <p>
+          Late-night, tourist discovery, group ordering and resident frequency
+          may require completely different merchant strategies.
+        </p>
+      </>
+    ),
+    instruction: "Filter St Julian's, Sliema or Valletta.",
+    button: "Enter the War Room →",
+    view: "warroom",
+  },
+  {
+    number: "06",
+    eyebrow: "Saturday · 19:30",
+    title: "Now the marketplace starts arguing.",
+    body: (
+      <>
+        <p>
+          Growth wants enough couriers to protect demand.
+        </p>
+
+        <p>Economics doesn&apos;t want to waste money island-wide.</p>
+
+        <p>Customer Experience cannot tolerate collapsing ETAs.</p>
+
+        <p className="font-black text-white">
+          Someone still has to make the decision.
+        </p>
+
+        <p>
+          Change the courier incentive and supply gap. Then look at the final GM
+          call.
+        </p>
+      </>
+    ),
+    instruction: "Try changing the courier incentive.",
+    button: "See the continuous engine →",
+    view: "malta52",
+  },
+  {
+    number: "07",
+    eyebrow: "Malta 52",
+    title: "I wouldn’t run Malta from an annual strategy deck.",
+    body: (
+      <>
+        <p>
+          Each experiment should produce information that changes the next
+          decision.
+        </p>
+
+        <p className="font-black text-white">
+          Week 17 does not exist yet.
+        </p>
+
+        <p>
+          The operating loop is Observe → Investigate → Challenge → Execute →
+          Learn → Reprioritise.
+        </p>
+      </>
+    ),
+    instruction: "Click “Find another €1M” and let the agents search.",
+    button: "Give COUNTRY GM a problem →",
+    view: "ask",
+  },
+  {
+    number: "08",
+    eyebrow: "Your turn",
+    title: "Give the operator a constraint.",
+    body: (
+      <>
+        <p>
+          Try the default mandate:
+        </p>
+
+        <p className="font-black text-white">
+          “Grow Malta 20% without increasing blanket discounting.”
+        </p>
+
+        <p>
+          The point isn&apos;t an AI answer. The point is whether the operating
+          system can investigate, reject weak ideas and tell us what internal
+          numbers would change its recommendation.
+        </p>
+      </>
+    ),
+    instruction: "Click “Run Malta”.",
+    button: "Who built this? →",
+    view: "ask",
+  },
+  {
+    number: "09",
+    eyebrow: "About me",
+    title: "I’m an operator who learned to build.",
+    body: (
+      <>
+        <p>
+          My career has moved through marketplace launches, Founder&apos;s
+          Office, GTM, operations, product and enterprise AI.
+        </p>
+
+        <p>
+          Swiggy. ClearTax. Founder&apos;s Office roles. Enterprise AI
+          transformation. Agentic operating systems.
+        </p>
+
+        <p>
+          The common thread has been walking into ambiguity and turning it into
+          something executable.
+        </p>
+      </>
+    ),
+    button: "Finish the application →",
+  },
+  {
+    number: "10",
+    eyebrow: "That’s my application",
+    title: "The interesting version starts with Bolt’s real data.",
+    body: (
+      <>
+        <p>
+          I don&apos;t know Bolt Malta better than the people operating it
+          today.
+        </p>
+
+        <p>
+          What I wanted to show is how I enter a problem I don&apos;t yet
+          understand.
+        </p>
+
+        <p className="font-black text-white">
+          Investigate quickly. Find leverage. Challenge the economics. Build.
+          Test. Learn.
+        </p>
+
+        <p>
+          Replace these public assumptions with Bolt&apos;s real marketplace
+          data and this gets much more interesting.
+        </p>
+
+        <p className="text-lg font-black text-white">
+          Give me 30 minutes.
+        </p>
+
+        <p>— Vaibhav</p>
+      </>
+    ),
+  },
+];
+
 export default function Home() {
   const [view, setView] = useState<View>("monday");
   const [selected, setSelected] = useState<Opportunity | null>(null);
   const [selectedLocality, setSelectedLocality] = useState(localities[0]);
   const [experimentOpen, setExperimentOpen] = useState(false);
+
+  const [tourOpen, setTourOpen] = useState(false);
+  const [tourStep, setTourStep] = useState(0);
+  const [tourCompleted, setTourCompleted] = useState(false);
 
   const [rides, setRides] = useState(35000);
   const [foodOverlap, setFoodOverlap] = useState(18);
@@ -431,10 +740,61 @@ export default function Home() {
   const monthlyGmv = incrementalOrders * aov;
   const annualGmv = monthlyGmv * 12;
 
+  const scrollTop = () => {
+    requestAnimationFrame(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    });
+  };
+
   const navigate = (next: View) => {
     setView(next);
     setSelected(null);
     setExperimentOpen(false);
+    scrollTop();
+  };
+
+  const openOpportunity = (id: number) => {
+    const opportunity = opportunities.find((item) => item.id === id);
+
+    if (!opportunity) return;
+
+    setSelected(opportunity);
+    setExperimentOpen(false);
+    scrollTop();
+  };
+
+  const executeTourStep = (step: TourStep) => {
+    if (step.view) {
+      setView(step.view);
+      setSelected(null);
+      setExperimentOpen(false);
+    }
+
+    if (step.opportunityId) {
+      const opportunity = opportunities.find(
+        (item) => item.id === step.opportunityId
+      );
+
+      if (opportunity) {
+        setSelected(opportunity);
+      }
+    }
+
+    scrollTop();
+
+    if (tourStep < tourSteps.length - 1) {
+      setTourStep((current) => current + 1);
+    }
+  };
+
+  const resetTour = () => {
+    setTourStep(0);
+    setTourCompleted(false);
+    setTourOpen(true);
+    navigate("monday");
   };
 
   return (
@@ -451,6 +811,7 @@ export default function Home() {
               onBack={() => {
                 setSelected(null);
                 setExperimentOpen(false);
+                scrollTop();
               }}
               experimentOpen={experimentOpen}
               setExperimentOpen={setExperimentOpen}
@@ -471,9 +832,9 @@ export default function Home() {
               goToWarRoom={() => navigate("warroom")}
             />
           ) : view === "monday" ? (
-            <Monday setSelected={setSelected} />
+            <Monday setSelected={openOpportunity} />
           ) : view === "malta52" ? (
-            <Malta52 setSelected={setSelected} />
+            <Malta52 setSelected={openOpportunity} />
           ) : view === "market" ? (
             <MaltaModel
               selectedLocality={selectedLocality}
@@ -499,7 +860,232 @@ export default function Home() {
 
         <RightRail />
       </div>
+
+      <ApplicationGuide
+        open={tourOpen}
+        setOpen={setTourOpen}
+        step={tourStep}
+        setStep={setTourStep}
+        completed={tourCompleted}
+        setCompleted={setTourCompleted}
+        executeStep={executeTourStep}
+        resetTour={resetTour}
+      />
     </main>
+  );
+}
+
+function ApplicationGuide({
+  open,
+  setOpen,
+  step,
+  setStep,
+  completed,
+  setCompleted,
+  executeStep,
+  resetTour,
+}: {
+  open: boolean;
+  setOpen: (value: boolean) => void;
+  step: number;
+  setStep: (value: number) => void;
+  completed: boolean;
+  setCompleted: (value: boolean) => void;
+  executeStep: (step: TourStep) => void;
+  resetTour: () => void;
+}) {
+  const current = tourSteps[step];
+  const isFinal = step === tourSteps.length - 1;
+  const progress = ((step + 1) / tourSteps.length) * 100;
+
+  if (!open) {
+    return (
+      <button
+        onClick={() => setOpen(true)}
+        className="fixed bottom-5 right-5 z-50 flex items-center gap-3 rounded-full bg-[#111827] px-5 py-3.5 text-sm font-black text-white shadow-2xl transition hover:-translate-y-0.5 hover:bg-black"
+      >
+        <span className="flex h-7 w-7 items-center justify-center rounded-full bg-violet-600 text-xs">
+          VV
+        </span>
+
+        <span className="hidden sm:block">
+          {completed ? "Talk to Vaibhav" : "Vaibhav’s application · 5 min"}
+        </span>
+
+        <span>→</span>
+      </button>
+    );
+  }
+
+  return (
+    <>
+      <button
+        aria-label="Close application guide"
+        onClick={() => setOpen(false)}
+        className="fixed inset-0 z-40 hidden bg-black/10 backdrop-blur-[1px] md:block"
+      />
+
+      <aside className="fixed bottom-0 right-0 z-50 flex max-h-[92vh] w-full flex-col overflow-hidden rounded-t-[28px] bg-[#111827] text-white shadow-2xl md:bottom-5 md:right-5 md:max-h-[calc(100vh-40px)] md:w-[390px] md:rounded-[28px]">
+        <div className="border-b border-white/10 px-6 pb-5 pt-6">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-violet-600 text-xs font-black">
+                VV
+              </div>
+
+              <div>
+                <div className="text-sm font-black">Application guide</div>
+                <div className="mt-0.5 text-[11px] text-white/40">
+                  Vaibhav → Bolt Food Malta
+                </div>
+              </div>
+            </div>
+
+            <button
+              onClick={() => setOpen(false)}
+              className="flex h-9 w-9 items-center justify-center rounded-full bg-white/5 text-white/50 transition hover:bg-white/10 hover:text-white"
+            >
+              ×
+            </button>
+          </div>
+
+          <div className="mt-5 h-1 overflow-hidden rounded-full bg-white/10">
+            <div
+              className="h-full rounded-full bg-violet-500 transition-all duration-500"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+
+          <div className="mt-2 flex justify-between text-[10px] font-black uppercase tracking-[0.13em] text-white/30">
+            <span>
+              {current.number} / {String(tourSteps.length).padStart(2, "0")}
+            </span>
+            <span>~5 min</span>
+          </div>
+        </div>
+
+        <div className="overflow-y-auto px-6 py-6">
+          <div className="text-[10px] font-black uppercase tracking-[0.18em] text-violet-300">
+            {current.eyebrow}
+          </div>
+
+          <h2 className="mt-3 text-[28px] font-black leading-[1.08] tracking-[-0.04em]">
+            {current.title}
+          </h2>
+
+          <div className="mt-6 space-y-4 text-[14px] leading-6 text-white/60">
+            {current.body}
+          </div>
+
+          {current.instruction && (
+            <div className="mt-6 rounded-2xl border border-violet-400/20 bg-violet-400/10 p-4">
+              <div className="text-[9px] font-black uppercase tracking-[0.16em] text-violet-300">
+                Try it yourself
+              </div>
+
+              <div className="mt-2 text-sm font-black leading-5 text-white">
+                {current.instruction}
+              </div>
+            </div>
+          )}
+
+          {step === 8 && (
+            <div className="mt-7 grid grid-cols-2 gap-3">
+              <a
+                href={CV_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-center text-xs font-black transition hover:bg-white/10"
+              >
+                View CV ↗
+              </a>
+
+              <a
+                href={LINKEDIN_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-center text-xs font-black transition hover:bg-white/10"
+              >
+                LinkedIn ↗
+              </a>
+            </div>
+          )}
+
+          {isFinal && (
+            <div className="mt-8">
+              <a
+                href={CALENDLY_URL}
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => setCompleted(true)}
+                className="flex w-full items-center justify-between rounded-2xl bg-violet-600 px-5 py-4 text-sm font-black transition hover:bg-violet-500"
+              >
+                <span>Book 30 minutes</span>
+                <span>→</span>
+              </a>
+
+              <div className="mt-3 grid grid-cols-2 gap-3">
+                <a
+                  href={CV_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="rounded-xl border border-white/10 px-4 py-3 text-center text-xs font-black text-white/65 transition hover:bg-white/5 hover:text-white"
+                >
+                  View CV
+                </a>
+
+                <a
+                  href={LINKEDIN_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="rounded-xl border border-white/10 px-4 py-3 text-center text-xs font-black text-white/65 transition hover:bg-white/5 hover:text-white"
+                >
+                  LinkedIn
+                </a>
+              </div>
+
+              <button
+                onClick={resetTour}
+                className="mt-5 w-full text-center text-[11px] font-bold text-white/30 transition hover:text-white/60"
+              >
+                Restart application journey
+              </button>
+            </div>
+          )}
+        </div>
+
+        {!isFinal && (
+          <div className="border-t border-white/10 px-6 py-5">
+            <button
+              onClick={() => executeStep(current)}
+              className="flex w-full items-center justify-between rounded-xl bg-violet-600 px-5 py-4 text-sm font-black transition hover:bg-violet-500"
+            >
+              <span>{current.button}</span>
+            </button>
+
+            <div className="mt-4 flex items-center justify-between">
+              {step > 0 ? (
+                <button
+                  onClick={() => setStep(Math.max(0, step - 1))}
+                  className="text-[11px] font-bold text-white/35 transition hover:text-white/65"
+                >
+                  ← Previous
+                </button>
+              ) : (
+                <span />
+              )}
+
+              <button
+                onClick={() => setOpen(false)}
+                className="text-[11px] font-bold text-white/35 transition hover:text-white/65"
+              >
+                Explore myself
+              </button>
+            </div>
+          </div>
+        )}
+      </aside>
+    </>
   );
 }
 
@@ -529,6 +1115,7 @@ function Header() {
           <div className="hidden rounded-full border border-black/10 bg-white px-4 py-2 text-xs font-black uppercase tracking-[0.12em] text-black/55 md:block">
             Week 01 / 52
           </div>
+
           <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#111827] text-sm font-black text-white">
             GM
           </div>
@@ -549,7 +1136,7 @@ function LeftNav({
     ["monday", "Monday"],
     ["malta52", "Malta 52"],
     ["market", "Malta Model"],
-    ["merchants", "Merchants"],
+    ["merchants", "Merchant Intel"],
     ["pnl", "P&L Lab"],
     ["warroom", "War Room"],
     ["agents", "Agents"],
@@ -578,6 +1165,7 @@ function LeftNav({
         <div className="px-4 text-[10px] font-black uppercase tracking-[0.2em] text-black/35">
           Mandate
         </div>
+
         <div className="mt-4 px-4 text-sm font-black leading-6">
           Win Malta.
           <br />
@@ -617,6 +1205,7 @@ function RightRail() {
                 <div className="text-sm font-black">{agent.name}</div>
                 <div className="mt-1 text-xs text-black/45">{agent.role}</div>
               </div>
+
               <span className="mt-1 h-2 w-2 rounded-full bg-violet-500" />
             </div>
 
@@ -631,6 +1220,7 @@ function RightRail() {
         <div className="text-[10px] font-black uppercase tracking-[0.18em] text-white/40">
           Country GM
         </div>
+
         <div className="mt-3 text-xl font-black leading-6">
           Fewer reports.
           <br />
@@ -644,7 +1234,7 @@ function RightRail() {
 function Monday({
   setSelected,
 }: {
-  setSelected: (op: Opportunity) => void;
+  setSelected: (id: number) => void;
 }) {
   const monday = opportunities.filter((op) => mondayIds.includes(op.id));
 
@@ -669,6 +1259,7 @@ function Monday({
 
       <div className="mt-12 border-b border-black/10 pb-5">
         <SectionLabel>Your Monday</SectionLabel>
+
         <h2 className="mt-2 text-3xl font-black tracking-[-0.03em]">
           Three moves. Everything else can wait.
         </h2>
@@ -678,7 +1269,7 @@ function Monday({
         {monday.map((op, index) => (
           <button
             key={op.id}
-            onClick={() => setSelected(op)}
+            onClick={() => setSelected(op.id)}
             className="group grid w-full gap-5 py-7 text-left transition hover:translate-x-1 md:grid-cols-[65px_minmax(0,1fr)_190px_40px]"
           >
             <div className="text-4xl font-black text-black/15">
@@ -689,6 +1280,7 @@ function Monday({
               <div className="text-2xl font-black tracking-[-0.03em]">
                 {op.title}
               </div>
+
               <div className="mt-2 text-sm leading-6 text-black/50">
                 {op.subtitle}
               </div>
@@ -699,12 +1291,15 @@ function Monday({
                 <div className="font-bold uppercase tracking-wider text-black/30">
                   Confidence
                 </div>
+
                 <div className="mt-2 text-lg font-black">{op.confidence}%</div>
               </div>
+
               <div>
                 <div className="font-bold uppercase tracking-wider text-black/30">
                   Test
                 </div>
+
                 <div className="mt-2 text-lg font-black">{op.speed}</div>
               </div>
             </div>
@@ -720,7 +1315,7 @@ function Monday({
 function Malta52({
   setSelected,
 }: {
-  setSelected: (op: Opportunity) => void;
+  setSelected: (id: number) => void;
 }) {
   const [searchState, setSearchState] = useState<
     "idle" | "searching" | "done"
@@ -787,7 +1382,7 @@ function Malta52({
             {opportunities.slice(0, 7).map((op) => (
               <button
                 key={op.id}
-                onClick={() => setSelected(op)}
+                onClick={() => setSelected(op.id)}
                 className="grid items-center gap-4 rounded-2xl px-4 py-4 text-left transition hover:bg-black/[0.03] md:grid-cols-[minmax(0,1fr)_160px_90px]"
               >
                 <div>
@@ -819,6 +1414,7 @@ function Malta52({
           <div className="mt-7 flex flex-col gap-5 border-t border-black/10 pt-7 md:flex-row md:items-center md:justify-between">
             <div>
               <SectionLabel>Modeled opportunity pool</SectionLabel>
+
               <div className="mt-2 text-4xl font-black">
                 €{(total / 1000000).toFixed(2)}M
               </div>
@@ -847,10 +1443,12 @@ function Malta52({
                 agent="Market Intelligence"
                 result="Scanning localities, occasions and external signals..."
               />
+
               <SearchStep
                 agent="Growth"
                 result="Generating new hypotheses..."
               />
+
               <SearchStep
                 agent="Economics"
                 result="Challenging the economics..."
@@ -890,6 +1488,7 @@ function Malta52({
 
                 <div className="shrink-0">
                   <SectionLabel>Modeled GMV</SectionLabel>
+
                   <div className="mt-2 text-3xl font-black text-violet-600">
                     €96K
                   </div>
@@ -901,10 +1500,12 @@ function Malta52({
                   label="Why investigate"
                   value="Repeatable resident occasion"
                 />
+
                 <SmallDecision
                   label="Biggest unknown"
                   value="Sunday cohort frequency"
                 />
+
                 <SmallDecision
                   label="Next action"
                   value="Pull locality × hour orders"
@@ -953,9 +1554,11 @@ function MaltaModel({
               <div className="flex items-start justify-between gap-6">
                 <div className="min-w-0">
                   <div className="text-lg font-black">{locality.name}</div>
+
                   <div className="mt-3 text-sm font-bold text-black/55">
                     {locality.archetype}
                   </div>
+
                   <div className="mt-1 text-xs text-black/40">
                     {locality.opportunity}
                   </div>
@@ -980,26 +1583,18 @@ function MaltaModel({
           </div>
 
           <div className="mt-7 space-y-4">
-            <LocalityMetric
-              label="Tourism"
-              value={selectedLocality.tourism}
-            />
+            <LocalityMetric label="Tourism" value={selectedLocality.tourism} />
             <LocalityMetric
               label="Nightlife"
               value={selectedLocality.nightlife}
             />
-            <LocalityMetric
-              label="Density"
-              value={selectedLocality.density}
-            />
-            <LocalityMetric
-              label="Courier"
-              value={selectedLocality.courier}
-            />
+            <LocalityMetric label="Density" value={selectedLocality.density} />
+            <LocalityMetric label="Courier" value={selectedLocality.courier} />
           </div>
 
           <div className="mt-7 border-t border-white/10 pt-6">
             <SectionLabel dark>Country GM view</SectionLabel>
+
             <p className="mt-3 text-sm leading-6 text-white/65">
               {selectedLocality.thesis}
             </p>
@@ -1071,6 +1666,7 @@ function MerchantIntelligence() {
                 <div className="text-xs font-black uppercase tracking-[0.14em] text-black/30">
                   Bolt rating
                 </div>
+
                 <div className="mt-1 text-2xl font-black">
                   {merchant.rating}
                 </div>
@@ -1078,18 +1674,9 @@ function MerchantIntelligence() {
             </div>
 
             <div className="mt-6 grid gap-3 md:grid-cols-4">
-              <SmallDecision
-                label="Occasion"
-                value={merchant.occasion}
-              />
-              <SmallDecision
-                label="Late-night"
-                value={merchant.lateNight}
-              />
-              <SmallDecision
-                label="Tourist fit"
-                value={merchant.touristFit}
-              />
+              <SmallDecision label="Occasion" value={merchant.occasion} />
+              <SmallDecision label="Late-night" value={merchant.lateNight} />
+              <SmallDecision label="Tourist fit" value={merchant.touristFit} />
               <SmallDecision
                 label="GM opportunity"
                 value={merchant.opportunity}
@@ -1174,6 +1761,7 @@ function OpportunityRoom(props: {
           items={op.evidence}
           badge="PUBLIC FACT"
         />
+
         <Evidence
           title="What we don't know"
           items={op.unknowns}
@@ -1186,6 +1774,7 @@ function OpportunityRoom(props: {
         <>
           <div className="mt-12">
             <Eyebrow>Give me the real numbers</Eyebrow>
+
             <h2 className="mt-3 text-3xl font-black">
               Replace assumptions. Watch the opportunity move.
             </h2>
@@ -1197,21 +1786,25 @@ function OpportunityRoom(props: {
               value={props.rides}
               setValue={props.setRides}
             />
+
             <Input
               label="Already use Food %"
               value={props.foodOverlap}
               setValue={props.setFoodOverlap}
             />
+
             <Input
               label="Activation %"
               value={props.activation}
               setValue={props.setActivation}
             />
+
             <Input
               label="Average order €"
               value={props.aov}
               setValue={props.setAov}
             />
+
             <Input
               label="Contribution €"
               value={props.contribution}
@@ -1228,14 +1821,17 @@ function OpportunityRoom(props: {
                 value={props.eligible.toLocaleString()}
                 label="eligible riders"
               />
+
               <DarkMetric
                 value={props.incrementalOrders.toLocaleString()}
                 label="orders / month"
               />
+
               <DarkMetric
                 value={`€${Math.round(props.monthlyGmv).toLocaleString()}`}
                 label="GMV / month"
               />
+
               <DarkMetric
                 value={`€${Math.round(props.annualGmv).toLocaleString()}`}
                 label="annualized GMV"
@@ -1282,22 +1878,24 @@ function ExperimentBuilder({ opportunity }: { opportunity: Opportunity }) {
           label="Hypothesis"
           text="A tightly targeted intervention will outperform blanket action while protecting contribution."
         />
-        <InfoBlock
-          label="Primary metric"
-          text="Incremental contribution"
-        />
+
+        <InfoBlock label="Primary metric" text="Incremental contribution" />
+
         <InfoBlock
           label="Test group"
           text="Selected high-potential Malta cohorts."
         />
+
         <InfoBlock
           label="Control"
           text="Comparable untreated cohort matched by locality and customer maturity."
         />
+
         <InfoBlock
           label="Kill criteria"
           text="Stop if contribution remains negative after minimum sample size or service quality degrades."
         />
+
         <InfoBlock
           label="Decision"
           text="Scale / narrow / redesign / kill."
@@ -1360,9 +1958,7 @@ function AskCountryGM() {
             disabled={runState === "running"}
             className="rounded-xl bg-violet-600 px-6 py-4 text-sm font-black disabled:opacity-60"
           >
-            {runState === "running"
-              ? "Running Malta..."
-              : "Run Malta →"}
+            {runState === "running" ? "Running Malta..." : "Run Malta →"}
           </button>
         </div>
       </div>
@@ -1447,10 +2043,7 @@ function AskCountryGM() {
               <Eyebrow>What changes my answer?</Eyebrow>
 
               <div className="mt-5 grid gap-4 md:grid-cols-2">
-                <SmallDecision
-                  label="01"
-                  value="Ride → Food overlap"
-                />
+                <SmallDecision label="01" value="Ride → Food overlap" />
                 <SmallDecision
                   label="02"
                   value="Contribution / order by cohort"
@@ -1459,10 +2052,7 @@ function AskCountryGM() {
                   label="03"
                   value="Saturday courier utilisation"
                 />
-                <SmallDecision
-                  label="04"
-                  value="Bolt Plus penetration"
-                />
+                <SmallDecision label="04" value="Bolt Plus penetration" />
               </div>
 
               <p className="mt-6 text-sm font-black">
@@ -1507,7 +2097,7 @@ function SaturdayWarRoom() {
       <Eyebrow>War Room · Saturday 19:30</Eyebrow>
 
       <h1 className="mt-5 max-w-4xl text-5xl font-black tracking-[-0.05em] md:text-6xl">
-        Malta's most important 30 minutes?
+        Malta&apos;s most important 30 minutes?
       </h1>
 
       <p className="mt-5 max-w-3xl text-xl leading-8 text-black/55">
@@ -1531,6 +2121,7 @@ function SaturdayWarRoom() {
             setValue={setIncentive}
             step={0.1}
           />
+
           <Input
             label="Modeled supply gap %"
             value={supplyShock}
@@ -1543,14 +2134,17 @@ function SaturdayWarRoom() {
             value={`+${model.supplyRecovery}%`}
             label="supply recovery"
           />
+
           <Metric
             value={`-${model.etaImprovement}m`}
             label="ETA impact"
           />
+
           <Metric
             value={`+${model.completionGain}%`}
             label="completion"
           />
+
           <Metric
             value={`-€${model.contributionHit}`}
             label="contribution / order"
@@ -1584,7 +2178,7 @@ function SaturdayWarRoom() {
         <Eyebrow dark>Country GM decision</Eyebrow>
 
         <div className="mt-4 text-3xl font-black">
-          Target the constraint. Don't subsidise the island.
+          Target the constraint. Don&apos;t subsidise the island.
         </div>
 
         <p className="mt-4 max-w-3xl text-sm leading-6 text-white/60">
@@ -1619,7 +2213,7 @@ function PnlLab({
       </h1>
 
       <p className="mt-5 max-w-3xl text-xl leading-8 text-black/55">
-        Growth ideas don't reach Monday until they survive economics.
+        Growth ideas don&apos;t reach Monday until they survive economics.
       </p>
 
       <div className="mt-10 rounded-3xl border border-black/10 bg-white p-8">
@@ -1630,10 +2224,12 @@ function PnlLab({
             value={incrementalOrders.toLocaleString()}
             label="orders / month"
           />
+
           <Metric
             value={`€${Math.round(monthlyGmv).toLocaleString()}`}
             label="monthly GMV"
           />
+
           <Metric
             value={`€${Math.round(annualGmv).toLocaleString()}`}
             label="annualized GMV"
@@ -1645,7 +2241,9 @@ function PnlLab({
             label="Contribution before promotion"
             value={`€${contribution.toFixed(2)}`}
           />
+
           <PnlRow label="Illustrative incentive" value="-€3.00" />
+
           <PnlRow
             label="Contribution after promotion"
             value={`€${postPromo.toFixed(2)}`}
@@ -1679,8 +2277,11 @@ function Agents() {
             className="rounded-3xl border border-black/10 bg-white p-7"
           >
             <div className="text-xs font-black text-black/20">0{i + 1}</div>
+
             <div className="mt-5 text-2xl font-black">{agent.name}</div>
+
             <div className="mt-2 text-sm text-black/45">{agent.role}</div>
+
             <div className="mt-8 border-t border-black/10 pt-5 text-sm font-black">
               {agent.status}
             </div>
@@ -1701,6 +2302,7 @@ function Agents() {
               <div className="text-[10px] font-black uppercase tracking-[0.18em] text-white/35">
                 {label}
               </div>
+
               <div className="mt-2 text-lg font-black">{title} →</div>
             </div>
           ))}
@@ -1728,6 +2330,7 @@ function Metric({
       >
         {value}
       </div>
+
       <div className="mt-2 text-xs font-bold text-black/40">{label}</div>
     </div>
   );
@@ -1789,6 +2392,7 @@ function Evidence({
                 dark ? "bg-violet-400" : "bg-violet-600"
               }`}
             />
+
             <span className={dark ? "text-white/65" : "text-black/60"}>
               {item}
             </span>
@@ -1868,6 +2472,7 @@ function PnlRow({
   return (
     <div className="flex items-center justify-between border-b border-black/10 py-4 last:border-0">
       <div className="text-sm text-black/55">{label}</div>
+
       <div className={`text-sm ${bold ? "font-black" : "font-bold"}`}>
         {value}
       </div>
@@ -1956,6 +2561,7 @@ function InfoBlock({
   return (
     <div>
       <SectionLabel>{label}</SectionLabel>
+
       <p className="mt-3 text-sm font-bold leading-6 text-black/65">{text}</p>
     </div>
   );
@@ -1971,6 +2577,7 @@ function SearchStep({
   return (
     <div className="flex items-center justify-between gap-5 border-b border-white/10 pb-4 last:border-0">
       <div className="font-black">{agent}</div>
+
       <div className="text-right text-sm text-white/50">{result}</div>
     </div>
   );
@@ -1988,6 +2595,7 @@ function SmallDecision({
       <div className="text-[10px] font-black uppercase tracking-[0.14em] text-black/35">
         {label}
       </div>
+
       <div className="mt-2 text-sm font-black">{value}</div>
     </div>
   );
@@ -2035,6 +2643,7 @@ function AgentStatement({
       </div>
 
       <div className="mt-4 text-xl font-black">{position}</div>
+
       <div className="mt-2 text-sm leading-6 text-black/50">{reason}</div>
     </div>
   );
